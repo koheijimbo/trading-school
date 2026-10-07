@@ -14,17 +14,17 @@
 | `data/structure.json` | 政権・議会・日銀の構造。人事や議席が動いた日だけ直す |
 | `data/index.json` | 号の一覧。手で編集せず、下のスクリプトで作り直す |
 | `scripts/build_index.py` | `data/index.json` を作り直し、データの形を検査する |
+| `scripts/import_export.py` | Claude 上の控えから書き出した号を `data/` に取り込む |
 
 ## 更新の流れ
 
-毎日17:47ごろ（日本時間）に、Claude のスケジュールタスクが次の順で更新します。
+1. 毎日17:47ごろ（日本時間）に、Claude のスケジュールタスクがその日の号を作り、Claude 上の非公開の控えに保存する。ここではまだ公開されない
+2. 内容を確認し、Claude のチャットで「日報を公開して」と伝える
+3. Claude が控えを書き出し、`python3 scripts/import_export.py <書き出し先>` で `data/` に取り込み、このブランチにコミットしてプッシュする
+4. 1〜2分で公開URLに反映される
 
-1. その日のニュースを調べ、`data/briefings/YYYY-MM-DD.json` を書く
-2. 人事・議席・政策金利が変わった日は `data/structure.json` も直す
-3. `python3 scripts/build_index.py` を実行する
-4. このブランチにコミットしてプッシュする
-
-手で直す場合も、号のファイルを編集したあとに手順3と4を行ってください。
+`scripts/import_export.py` は取り込みのあと `scripts/build_index.py` も実行する。
+号のファイルを手で直した場合は `python3 scripts/build_index.py` を実行してからコミットする。
 
 ## 注意
 
