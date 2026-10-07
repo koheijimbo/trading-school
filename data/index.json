@@ -1,12 +1,17 @@
 {
-  "generatedAt": "2026-10-07T17:31:58+09:00",
+  "generatedAt": "2026-10-07T18:11:14+09:00",
   "briefings": [
     {
       "date": "2026-10-07",
-      "status": "provisional",
-      "edition": "午前版（暫定）",
-      "headline": "米国株は続伸、国会はきょうから代表質問",
+      "status": "final",
+      "edition": "確定版",
+      "headline": "日経平均648円安、3日ぶり反落。円は158円台で膠着",
       "nums": {
+        "nikkei": 70035.71,
+        "topix": 4154,
+        "usdjpy": 158.1,
+        "jgb10y": 3.094,
+        "wti": 89.44,
         "dow": 51521.28,
         "nasdaq": 27599.79
       }
