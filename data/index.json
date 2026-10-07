@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-10-07T17:31:58+09:00",
+  "briefings": [
+    {
+      "date": "2026-10-07",
+      "status": "provisional",
+      "edition": "午前版（暫定）",
+      "headline": "米国株は続伸、国会はきょうから代表質問",
+      "nums": {
+        "dow": 51521.28,
+        "nasdaq": 27599.79
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "status": "final",
+      "edition": "確定版",
+      "headline": "株高・円安・金利高が同時に進んだ一日",
+      "nums": {
+        "nikkei": 70683.98,
+        "topix": 4183.56,
+        "usdjpy": 158.13,
+        "jgb10y": 3.105,
+        "wti": 88.43
+      }
+    }
+  ]
+}

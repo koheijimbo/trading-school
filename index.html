@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>政局×マーケット日報</title>
+<meta name="description" content="為替・株式取引に効くニュースと、政権・議会・日銀の構造を毎日まとめる日報。日付を切り替えて過去の号も読めます。">
+<meta property="og:title" content="政局×マーケット日報">
+<meta property="og:description" content="為替・株式取引に効くニュースと、政権・議会・日銀の構造を毎日まとめる日報。日付を切り替えて過去の号も読めます。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1128">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230A1128'/%3E%3Cpath d='M10 46 L24 32 L34 40 L54 16' fill='none' stroke='%23D4AF37' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='54' cy='16' r='5' fill='%2300E5FF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@600;700;800&family=Oswald:wght@500;600&display=swap">
+<style>
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: a trading-desk daily sheet. Sticky date rail on top, then one scanning column:
+   numbers first, then causes, then the slow-moving power structure, then what to watch. */
+:root{
+  --bg:#0A1128; --bg2:#0E1838; --surface:#121E45; --surface2:#19285A; --line:#283C76;
+  --ink:#EEF2FA; --ink2:#B7C3E0; --ink3:#8696BD;
+  --gold:#D4AF37; --gold-soft:#F0DFA0; --cyan:#00E5FF;
+  --up:#FF8090; --down:#73B6FF; --warn:#FF5C77; --on-accent:#0A1128;
+  --seat-g1:#D4AF37; --seat-g2:#F0DFA0; --seat-o1:#00E5FF; --seat-o2:#2FA9C4; --seat-o3:#A8EEF5;
+  --seat-o4:#8FA3CC; --seat-o5:#5E6E99; --seat-o6:#C9D3EA; --seat-x:#3A4874; --on-seat:#0A1128;
+  --f-display:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;
+  --f-body:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',Meiryo,sans-serif;
+  --f-num:'Oswald','Arial Narrow',Arial,sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#EDF0F7; --bg2:#E2E7F2; --surface:#FBFCFE; --surface2:#F0F3FA; --line:#C7D0E5;
+    --ink:#0A1128; --ink2:#3A4A73; --ink3:#5D6C94;
+    --gold:#8A6808; --gold-soft:#A27C12; --cyan:#00697A;
+    --up:#C2203A; --down:#1A5CC0; --warn:#C2203A; --on-accent:#FFFDF4;
+    --seat-g1:#C9A227; --seat-g2:#E8D48F; --seat-o1:#22BFD6; --seat-o2:#2D97B0; --seat-o3:#A5E0E9;
+    --seat-o4:#8FA3CC; --seat-o5:#6E7EA8; --seat-o6:#BCC7E0; --seat-x:#9BA6C2; --on-seat:#0A1128;
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#EDF0F7; --bg2:#E2E7F2; --surface:#FBFCFE; --surface2:#F0F3FA; --line:#C7D0E5;
+  --ink:#0A1128; --ink2:#3A4A73; --ink3:#5D6C94;
+  --gold:#8A6808; --gold-soft:#A27C12; --cyan:#00697A;
+  --up:#C2203A; --down:#1A5CC0; --warn:#C2203A; --on-accent:#FFFDF4;
+  --seat-g1:#C9A227; --seat-g2:#E8D48F; --seat-o1:#22BFD6; --seat-o2:#2D97B0; --seat-o3:#A5E0E9;
+  --seat-o4:#8FA3CC; --seat-o5:#6E7EA8; --seat-o6:#BCC7E0; --seat-x:#9BA6C2; --on-seat:#0A1128;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75;-webkit-text-size-adjust:100%}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:var(--cyan);text-underline-offset:3px}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1120px;margin-inline:auto;padding-inline:20px;padding-block:10px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:10px;align-items:baseline;min-width:0}
+.brand b{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:.02em;white-space:nowrap}
+.brand span{font-size:11px;letter-spacing:.18em;color:var(--gold);font-weight:700;white-space:nowrap}
+.datenav{display:flex;gap:6px;align-items:center}
+.datenav button{background:var(--surface);border:1px solid var(--line);border-radius:8px;min-width:40px;height:38px;cursor:pointer;font-size:16px}
+.datenav button:disabled{opacity:.35;cursor:default}
+.datenav button:not(:disabled):hover{border-color:var(--gold)}
+.datenav select{background:var(--surface);border:1px solid var(--line);border-radius:8px;height:38px;padding-inline:10px;max-width:60vw;font-variant-numeric:tabular-nums}
+.secnav{max-width:1120px;margin-inline:auto;padding-inline:20px;overflow-x:auto;scrollbar-width:none}
+.secnav::-webkit-scrollbar{display:none}
+.secnav ul{display:flex;gap:4px;padding-block:0 8px;white-space:nowrap}
+.secnav a{display:block;padding:4px 10px;border-radius:999px;font-size:13px;color:var(--ink2);text-decoration:none}
+.secnav a:hover{color:var(--ink);background:var(--surface)}
+
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:20px;padding-block:28px 64px;display:flex;flex-direction:column;gap:44px}
+section{display:flex;flex-direction:column;gap:16px;scroll-margin-top:110px}
+.sec-head{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:8px}
+.sec-head h2{font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.3;text-wrap:balance}
+.sec-head p{font-size:13px;color:var(--ink3)}
+
+.mast{gap:14px}
+.mast-meta{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:13px;color:var(--ink2)}
+.mast-date{font-family:var(--f-num);font-size:20px;letter-spacing:.04em;color:var(--gold);font-weight:600}
+.badge{display:inline-block;padding:1px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--gold);color:var(--gold)}
+.badge.prov{border-color:var(--warn);color:var(--warn)}
+.mast h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,5vw,46px);line-height:1.25;text-wrap:balance;max-width:22em}
+.lede{font-size:16px;color:var(--ink2);max-width:44em}
+.takes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.takes li{padding:14px 18px;display:flex;gap:12px;align-items:baseline;border-top:1px solid var(--line);margin-top:-1px;border-left:1px solid var(--line);margin-left:-1px;min-width:0}
+.takes .n{font-family:var(--f-num);font-size:26px;line-height:1;color:var(--gold);font-weight:600}
+.takes p{font-size:14px;line-height:1.6;min-width:0}
+.notice{border:1px solid var(--warn);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--ink)}
+.notice b{color:var(--warn)}
+
+.tiles{display:flex;flex-wrap:wrap;gap:12px}
+.tile{flex:1 1 300px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tile .lab{font-size:12.5px;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.tile .val{font-family:var(--f-num);font-weight:600;font-size:clamp(25px,6.4vw,36px);line-height:1.15;font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 5px}
+.tile .val span{white-space:nowrap}
+.tile .val small{font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--ink2)}
+@media (max-width:640px){.tile{flex-basis:150px;padding:12px 14px}}
+.tile .chg{font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.chg.up{color:var(--up)} .chg.down{color:var(--down)} .chg.flat{color:var(--ink2)}
+.tile .asof{font-size:11.5px;color:var(--ink3)}
+.tile .note{font-size:12.5px;color:var(--ink2);line-height:1.55}
+.tile svg{display:block;width:100%;height:36px;margin-top:4px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card h3{font-size:17px;line-height:1.45;font-weight:700;text-wrap:balance}
+.card p{font-size:14px;color:var(--ink2)}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--cyan)}
+.driver{border-top:3px solid var(--gold)}
+.driver .no{font-family:var(--f-num);font-size:28px;line-height:1;color:var(--gold);font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:transparent;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px;cursor:pointer;color:var(--ink2)}
+.chip:hover{border-color:var(--gold);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--on-accent);font-weight:700}
+.news{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.news li{display:grid;grid-template-columns:84px minmax(0,1fr);gap:4px 16px;padding:14px 18px;border-top:1px solid var(--line)}
+.news li:first-child{border-top:none}
+.news .cat{font-size:12px;font-weight:700;color:var(--gold);padding-top:3px}
+.news h3{font-size:15.5px;line-height:1.5;font-weight:700}
+.news p{font-size:13.5px;color:var(--ink2)}
+.news .foot{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:4px;font-size:12px;color:var(--ink3)}
+.pill{display:inline-block;border:1px solid var(--ink3);border-radius:4px;padding:0 7px;font-size:11.5px;font-weight:700;color:var(--ink2);line-height:1.7}
+.pill.yen{border-color:var(--gold);color:var(--gold)} .pill.eq{border-color:var(--cyan);color:var(--cyan)}
+@media (max-width:560px){.news li{grid-template-columns:minmax(0,1fr)}}
+
+.rate{font-family:var(--f-num);font-weight:600;font-size:clamp(34px,6vw,52px);line-height:1.1;font-variant-numeric:tabular-nums}
+.facts{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ink2)}
+.facts li{padding-left:14px;position:relative}
+.facts li::before{content:"";position:absolute;left:0;top:.8em;width:6px;height:2px;background:var(--gold)}
+.vote{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;padding-top:6px;border-top:1px solid var(--line)}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dot{width:16px;height:16px;border-radius:50%;background:var(--gold)}
+.dot.no{background:transparent;border:2.5px solid var(--cyan)}
+.vote p{font-size:12.5px;color:var(--ink2)}
+
+.roles{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:14px}
+.roles dt{color:var(--ink3);font-size:12.5px;padding-top:2px}
+.roles dd{font-weight:700;text-align:right}
+.house{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.house-top{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.house-top h3{font-family:var(--f-display);font-size:20px;font-weight:700}
+.house-top p{font-size:14.5px;font-weight:700;color:var(--gold)}
+.seatbar{position:relative;padding-top:26px}
+.segs{display:flex;height:44px;border-radius:8px;overflow:hidden}
+.seg{min-width:0;display:flex;align-items:center;overflow:hidden}
+.seg span{font-size:12.5px;font-weight:700;color:var(--on-seat);padding-left:10px;white-space:nowrap}
+.mark{position:absolute;top:18px;bottom:-4px;width:0;border-left:2px dashed var(--ink)}
+.mark span{position:absolute;top:-20px;font-size:11.5px;font-weight:700;white-space:nowrap;color:var(--ink)}
+.mark.l span{right:5px} .mark.r span{left:5px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;color:var(--ink2)}
+.legend li{display:flex;gap:6px;align-items:center}
+.sw{width:11px;height:11px;border-radius:3px;flex:none}
+.house .note{font-size:13.5px;color:var(--ink2)}
+.tl{display:flex;flex-direction:column;border-left:2px solid var(--line);padding-left:16px;gap:10px}
+.tl li{display:grid;grid-template-columns:88px minmax(0,1fr);gap:2px 12px;font-size:14px}
+.tl .d{font-family:var(--f-num);color:var(--cyan);font-weight:600;font-size:15px}
+@media (max-width:480px){.tl li{grid-template-columns:minmax(0,1fr)}}
+
+.flow{display:flex;flex-direction:column;gap:10px}
+.flow li{display:flex;gap:10px;align-items:stretch}
+.flow .box{flex:1 1 0;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;line-height:1.55}
+.flow .box.from{border-left:4px solid var(--gold);font-weight:700}
+.flow .box.to{border-left:4px solid var(--cyan);font-weight:700}
+.flow .ar{flex:none;align-self:center;color:var(--gold);font-weight:700}
+.flow .ar::before{content:"→"}
+@media (max-width:680px){.flow li{flex-direction:column;gap:2px}.flow .ar::before{content:"↓"}.flow li + li{margin-top:8px}}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-top:1px solid var(--line);line-height:1.6}
+thead th{border-top:none;font-size:12.5px;background:var(--surface2);white-space:nowrap}
+th.w{color:var(--gold)} th.s{color:var(--cyan)}
+tbody th{font-weight:700;white-space:nowrap}
+td{color:var(--ink2)}
+
+.cal{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px 14px}
+.cal li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.cal .d{font-family:var(--f-num);font-size:17px;font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums}
+.cal p{font-size:14px;line-height:1.55}
+.cal .k{font-size:11.5px;color:var(--ink3);font-weight:700;margin-right:6px}
+
+.prose{display:flex;flex-direction:column;gap:20px;max-width:46em}
+.prose h3{font-family:var(--f-display);font-size:18px;font-weight:700;line-height:1.5;margin-bottom:4px}
+.prose p{font-size:15px;color:var(--ink2);line-height:1.9}
+.prose .grp{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--cyan);padding-top:8px;border-top:1px solid var(--line)}
+
+.src{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:4px 24px;font-size:13px}
+.src li{min-width:0;overflow-wrap:anywhere;color:var(--ink2)}
+.foot{font-size:12.5px;color:var(--ink3);display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:16px}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:36px 24px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.empty h1{font-family:var(--f-display);font-size:24px;font-weight:700}
+.empty p{color:var(--ink2);max-width:40em}
+.deck{display:inline-flex;gap:8px;align-items:center;font-size:13.5px;font-weight:700}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><b>政局×マーケット日報</b><span>@SOHO DAILY</span></div>
+    <div class="datenav">
+      <button type="button" id="prevBtn" aria-label="前の日へ" disabled>‹</button>
+      <label for="dateSel" hidden>表示する日付</label>
+      <select id="dateSel" aria-label="表示する日付" disabled><option>読み込み中</option></select>
+      <button type="button" id="nextBtn" aria-label="次の日へ" disabled>›</button>
+    </div>
+  </div>
+  <nav class="secnav" aria-label="セクション">
+    <ul>
+      <li><a href="#shikyo">市況</a></li>
+      <li><a href="#zairyo">材料</a></li>
+      <li><a href="#news">ニュース</a></li>
+      <li><a href="#kinyu">金融政策</a></li>
+      <li><a href="#kozo">政治構造</a></li>
+      <li><a href="#keiro">伝達経路</a></li>
+      <li><a href="#kakunin">確認ポイント</a></li>
+      <li><a href="#nittei">日程</a></li>
+      <li><a href="#kaisetsu">解説</a></li>
+      <li><a href="#shutten">出典</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="wrap" id="app">
+  <div class="empty"><h1>きょうの分析を読み込んでいます</h1><p>市況、相場を動かした材料、政権と議会の構造、今後の日程がここに並びます。</p></div>
+</main>
+<script>
+(function(){
+'use strict';
+var app=document.getElementById('app'), sel=document.getElementById('dateSel'),
+    prevBtn=document.getElementById('prevBtn'), nextBtn=document.getElementById('nextBtn');
+var st={db:'loading', list:[], structure:null, picked:null, filter:'すべて', sig:''};
+var WD=['日','月','火','水','木','金','土'];
+
+function S(v){return typeof v==='string'?v:(v==null?'':String(v));}
+function A(v){return Array.isArray(v)?v:[];}
+function O(v){return (v&&typeof v==='object'&&!Array.isArray(v))?v:{};}
+function h(tag,attrs,kids){
+  var e=document.createElement(tag),k;
+  if(attrs){for(k in attrs){var v=attrs[k]; if(v==null||v===false)continue;
+    if(k==='class')e.className=v; else if(k==='text')e.textContent=S(v); else e.setAttribute(k,v===true?'':v);}}
+  [].concat(kids==null?[]:kids).forEach(function(c){ if(c==null||c===false)return; e.appendChild(typeof c==='string'?document.createTextNode(c):c); });
+  return e;
+}
+function safeUrl(u){return (typeof u==='string'&&/^https:\/\/[^\s"'<>]+$/.test(u))?u:null;}
+function link(text,url){var u=safeUrl(url); return u?h('a',{href:u,target:'_blank',rel:'noopener noreferrer',text:text}):document.createTextNode(S(text));}
+function validDate(d){return typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d);}
+function jpDate(d){var p=d.split('-').map(Number); var w=new Date(Date.UTC(p[0],p[1]-1,p[2])).getUTCDay(); return p[0]+'年'+p[1]+'月'+p[2]+'日（'+WD[w]+'）';}
+function shortDate(d){var p=d.split('-').map(Number); return p[1]+'月'+p[2]+'日';}
+function todayJST(){return new Date(Date.now()+9*3600e3).toISOString().slice(0,10);}
+function dayDiff(a,b){return Math.round((Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z'))/864e5);}
+function stamp(iso){var t=Date.parse(S(iso)); if(isNaN(t))return ''; var j=new Date(t+9*3600e3);
+  return (j.getUTCMonth()+1)+'月'+j.getUTCDate()+'日 '+('0'+j.getUTCHours()).slice(-2)+':'+('0'+j.getUTCMinutes()).slice(-2)+'（日本時間）';}
+function secHead(title,sub){return h('div',{class:'sec-head'},[h('h2',{text:title}), sub?h('p',{text:sub}):null]);}
+function current(){ if(!st.list.length)return null; var i; if(st.picked){for(i=0;i<st.list.length;i++) if(st.list[i].date===st.picked) return st.list[i];} return st.list[0]; }
+
+/* ---------- pieces ---------- */
+function spark(id,uptoDate){
+  var pts=[]; st.list.forEach(function(e){ if(e.date>uptoDate||S(e.status)==='provisional')return;
+    var v=O(e.nums)[id]; if(typeof v==='number'&&isFinite(v)) pts.push({d:e.date,v:v}); });
+  pts.sort(function(a,b){return a.d<b.d?-1:1;}); pts=pts.slice(-30);
+  if(pts.length<3)return null;
+  var lo=Infinity,hi=-Infinity; pts.forEach(function(p){lo=Math.min(lo,p.v);hi=Math.max(hi,p.v);}); if(hi===lo){hi+=1;lo-=1;}
+  var W=200,H=36,P=4, xy=pts.map(function(p,i){return [(P+(W-2*P)*i/(pts.length-1)).toFixed(1),(H-P-(H-2*P)*(p.v-lo)/(hi-lo)).toFixed(1)];});
+  var NS='http://www.w3.org/2000/svg', svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.setAttribute('preserveAspectRatio','none'); svg.setAttribute('role','img');
+  svg.setAttribute('aria-label',shortDate(pts[0].d)+'から'+shortDate(pts[pts.length-1].d)+'までの推移');
+  var pl=document.createElementNS(NS,'polyline'); pl.setAttribute('points',xy.map(function(p){return p.join(',');}).join(' '));
+  pl.setAttribute('fill','none'); pl.setAttribute('stroke','var(--gold)'); pl.setAttribute('stroke-width','2'); pl.setAttribute('vector-effect','non-scaling-stroke'); pl.setAttribute('stroke-linejoin','round');
+  var c=document.createElementNS(NS,'circle'); c.setAttribute('cx',xy[xy.length-1][0]); c.setAttribute('cy',xy[xy.length-1][1]); c.setAttribute('r','3'); c.setAttribute('fill','var(--gold)');
+  svg.appendChild(pl); svg.appendChild(c); return svg;
+}
+function tile(m,date){
+  m=O(m); var dir=S(m.dir), arrow=dir==='up'?'↑ ':dir==='down'?'↓ ':'';
+  return h('li',{class:'tile'},[
+    h('p',{class:'lab',text:m.label}),
+    h('p',{class:'val'},[h('span',{text:m.value}), m.unit?h('small',{text:m.unit}):null]),
+    m.change?h('p',{class:'chg '+(dir==='up'||dir==='down'?dir:'flat'),text:arrow+S(m.change)}):null,
+    m.asOf?h('p',{class:'asof',text:m.asOf}):null,
+    m.note?h('p',{class:'note',text:m.note}):null,
+    m.id?spark(S(m.id),date):null
+  ]);
+}
+function pill(t){t=S(t); var c=/円|ドル/.test(t)?' yen':/株/.test(t)?' eq':''; return h('span',{class:'pill'+c,text:t});}
+function seatBar(hs){
+  hs=O(hs); var parties=A(hs.parties).filter(function(p){return p&&typeof p.seats==='number'&&p.seats>0;});
+  var total=parties.reduce(function(s,p){return s+p.seats;},0); if(!total)return null;
+  var gi=0,oi=0;
+  var colored=parties.map(function(p){var side=S(p.side),col;
+    if(side==='gov'){col='var(--seat-g'+(Math.min(gi,1)+1)+')';gi++;}
+    else if(side==='other'){col='var(--seat-x)';}
+    else {col='var(--seat-o'+(Math.min(oi,5)+1)+')';oi++;}
+    return {p:p,col:col};});
+  var segs=h('div',{class:'segs'},colored.map(function(x){
+    var share=x.p.seats/total, e=h('div',{class:'seg',title:S(x.p.name)+' '+x.p.seats},
+      (share>=0.095&&x.col!=='var(--seat-x)'&&x.col!=='var(--seat-o5)')?h('span',{text:S(x.p.name)+' '+x.p.seats}):null);
+    e.style.flex=x.p.seats+' 1 0'; e.style.background=x.col; return e;}));
+  var marks=A(hs.lines).filter(function(l){return l&&typeof l.seats==='number'&&l.seats>0&&l.seats<total;}).map(function(l,i,arr){
+    var e=h('div',{class:'mark '+((arr.length===1||i%2===0)?'l':'r')},h('span',{text:S(l.label)+' '+l.seats})); e.style.left=(100*l.seats/total).toFixed(2)+'%'; return e;});
+  var legend=h('ul',{class:'legend'},colored.map(function(x){var sw=h('span',{class:'sw'}); sw.style.background=x.col; return h('li',null,[sw,S(x.p.name)+' '+x.p.seats]);}));
+  return h('div',{class:'house'},[
+    h('div',{class:'house-top'},[h('h3',{text:hs.name}), hs.headline?h('p',{text:hs.headline}):null]),
+    h('div',{class:'seatbar',role:'img','aria-label':S(hs.name)+'の議席構成。'+parties.map(function(p){return S(p.name)+p.seats;}).join('、')},[segs].concat(marks)),
+    legend,
+    hs.note?h('p',{class:'note',text:hs.note}):null,
+    hs.source?h('p',{class:'asof',text:hs.source}):null
+  ]);
+}
+
+/* ---------- sections ---------- */
+function masthead(b,latest){
+  var prov=S(b.status)==='provisional', gap=dayDiff(latest.date,todayJST());
+  var kids=[
+    h('div',{class:'mast-meta'},[
+      h('span',{class:'mast-date',text:jpDate(b.date)}),
+      h('span',{class:'badge'+(prov?' prov':''),text:S(b.edition)||(prov?'暫定版':'確定版')}),
+      b.updatedAt?h('span',{text:'最終更新 '+stamp(b.updatedAt)}):null
+    ]),
+    h('h1',{text:b.headline}),
+    b.lede?h('p',{class:'lede',text:b.lede}):null
+  ];
+  if(prov) kids.push(h('p',{class:'notice'},[h('b',{text:'暫定版です。'}),' 東京市場の終値と当日の国会の動きは、夕方の更新で反映されます。']));
+  if(b.date!==latest.date) kids.push(h('p',{class:'notice'},[h('b',{text:'過去の号を表示しています。'}),' 最新は'+shortDate(latest.date)+'号です。']));
+  else if(gap>=2) kids.push(h('p',{class:'notice'},[h('b',{text:'更新が'+gap+'日止まっています。'}),' 最新は'+shortDate(latest.date)+'号です。自動更新のタスクが動いているか確認してください。']));
+  var t=A(b.takeaways); if(t.length) kids.push(h('ol',{class:'takes'},t.map(function(x,i){return h('li',null,[h('span',{class:'n',text:String(i+1)}),h('p',{text:x})]);})));
+  var d=safeUrl(b.deckUrl); if(d) kids.push(h('p',{class:'deck'},[link('この日のスライド版を開く',d)]));
+  return h('section',{class:'mast'},kids);
+}
+function secMarkets(b){var m=A(b.markets); if(!m.length)return null;
+  return h('section',{id:'shikyo'},[secHead('市況','終値と前日比。数字の下は取得時点'), h('ul',{class:'tiles'},m.map(function(x){return tile(x,b.date);}))]);}
+function secDrivers(b){var d=A(b.drivers); if(!d.length)return null;
+  return h('section',{id:'zairyo'},[secHead('相場を動かした材料','どの経路の話かを先に仕分ける'),
+    h('ol',{class:'cards'},d.map(function(x,i){x=O(x); return h('li',{class:'card driver'},[
+      h('span',{class:'no',text:('0'+(i+1)).slice(-2)}), x.channel?h('span',{class:'kicker',text:x.channel}):null, h('h3',{text:x.title}), h('p',{text:x.body})]);}))]);}
+function secNews(b){var n=A(b.news).map(O); if(!n.length)return null;
+  var cats=['すべて']; n.forEach(function(x){var c=S(x.category); if(c&&cats.indexOf(c)<0)cats.push(c);});
+  if(cats.indexOf(st.filter)<0) st.filter='すべて';
+  var shown=n.filter(function(x){return st.filter==='すべて'||S(x.category)===st.filter;});
+  var chips=h('div',{class:'chips',role:'group','aria-label':'ジャンルで絞り込む'},cats.map(function(c){
+    var btn=h('button',{type:'button',class:'chip','aria-pressed':String(c===st.filter),text:c}); btn.addEventListener('click',function(){st.filter=c;render();}); return btn;}));
+  return h('section',{id:'news'},[secHead('取引に効くニュース',n.length+'本。右下のラベルは相場への向き'), chips,
+    h('ul',{class:'news'},shown.map(function(x){return h('li',null,[
+      h('span',{class:'cat',text:x.category}),
+      h('div',null,[h('h3',{text:x.title}), x.body?h('p',{text:x.body}):null,
+        h('div',{class:'foot'},A(x.impacts).map(pill).concat([x.source?h('span',null,['出典: ',link(S(x.source),x.url)]):null]))])]);}))]);}
+function secMonetary(s){var m=A(O(s).monetary).map(O); if(!m.length)return null;
+  return h('section',{id:'kinyu'},[secHead('金融政策','日米の政策金利と票の割れ方'),
+    h('div',{class:'cards'},m.map(function(x){var v=O(x.vote), nf=Math.max(0,Math.min(20,Number(v['for'])||0)), na=Math.max(0,Math.min(20,Number(v.against)||0)), dots=[],i;
+      for(i=0;i<nf;i++)dots.push(h('span',{class:'dot'})); for(i=0;i<na;i++)dots.push(h('span',{class:'dot no'}));
+      return h('div',{class:'card'},[
+        h('span',{class:'kicker',text:S(x.name)+(x.rateLabel?'｜'+S(x.rateLabel):'')}),
+        h('p',{class:'rate',text:x.rate}),
+        h('ul',{class:'facts'},A(x.facts).map(function(f){return h('li',{text:f});})),
+        (nf+na)?h('div',{class:'vote'},[h('div',{class:'dots',role:'img','aria-label':'賛成'+nf+'、反対'+na},dots),
+          h('p',{text:'● '+S(v.forLabel||'賛成')+' '+nf+'　○ '+S(v.againstLabel||'反対')+' '+na})]):null
+      ]);}))]);}
+function secStructure(s){s=O(s); var layers=A(s.layers).map(O), houses=A(s.houses), opp=O(s.opposition);
+  if(!layers.length&&!houses.length)return null;
+  var kids=[secHead('政治構造',s.asOf&&validDate(s.asOf)?shortDate(s.asOf)+'時点。人事や議席が動いた日に更新':'')];
+  if(s.summary) kids.push(h('p',{class:'lede',text:s.summary}));
+  if(layers.length) kids.push(h('div',{class:'cards'},layers.map(function(l){return h('div',{class:'card'},[
+    h('h3',{text:l.title}), l.sub?h('span',{class:'kicker',text:l.sub}):null,
+    h('dl',{class:'roles'},[].concat.apply([],A(l.members).map(function(m){m=O(m); return [h('dt',{text:m.role}),h('dd',{text:m.name})];}))),
+    l.note?h('p',{text:l.note}):null]);})));
+  houses.forEach(function(x){var e=seatBar(x); if(e)kids.push(e);});
+  if(A(opp.timeline).length||A(opp.notes).length){
+    kids.push(h('div',{class:'house'},[
+      h('div',{class:'house-top'},[h('h3',{text:S(opp.title)||'野党の再編'})]),
+      h('ol',{class:'tl'},A(opp.timeline).map(function(t){t=O(t); return h('li',null,[h('span',{class:'d',text:t.date}),h('span',{text:t.text})]);})),
+      A(opp.notes).map(function(n){n=O(n); return h('p',{class:'note'},[h('b',{text:S(n.heading)+'　'}),S(n.body)]);})
+    ].reduce(function(a,c){return a.concat(c);},[])));
+  }
+  return h('section',{id:'kozo'},kids);}
+function secChannels(s){var c=A(O(s).channels).map(O); if(!c.length)return null;
+  return h('section',{id:'keiro'},[secHead('政治が為替と株に伝わる経路','起点 → 中間で動くもの → 市場の反応'),
+    h('ul',{class:'flow'},c.map(function(x){return h('li',null,[h('div',{class:'box from',text:x.from}),h('span',{class:'ar','aria-hidden':'true'}),
+      h('div',{class:'box',text:x.mid}),h('span',{class:'ar','aria-hidden':'true'}),h('div',{class:'box to',text:x.to})]);})),
+    h('p',{class:'asof',text:'公開報道をもとにした整理で、因果を保証するものではありません。'})]);}
+function secWatch(b){var w=A(b.watch).map(O); if(!w.length)return null;
+  return h('section',{id:'kakunin'},[secHead('材料ごとの確認ポイント','条件の整理であり、価格や方向の予測ではありません'),
+    h('div',{class:'scroll'},h('table',null,[
+      h('thead',null,h('tr',null,[h('th',{scope:'col',text:'材料'}),h('th',{scope:'col',class:'w',text:'円安方向に働く条件'}),h('th',{scope:'col',class:'s',text:'円高方向に働く条件'}),h('th',{scope:'col',text:'日本株への含意'})])),
+      h('tbody',null,w.map(function(x){return h('tr',null,[h('th',{scope:'row',text:x.item}),h('td',{text:x.yenWeak}),h('td',{text:x.yenStrong}),h('td',{text:x.equity})]);}))]))]);}
+function secCal(b){var c=A(b.calendar).map(O); if(!c.length)return null;
+  return h('section',{id:'nittei'},[secHead('この先の重要日程','日付順'),
+    h('ol',{class:'cal'},c.map(function(x){return h('li',null,[h('span',{class:'d',text:x.date}),h('p',null,[x.kind?h('span',{class:'k',text:x.kind}):null,S(x.label)])]);}))]);}
+function secProse(b,s){var a=A(b.analysis).map(O), sa=A(O(s).analysis).map(O); if(!a.length&&!sa.length)return null;
+  function blocks(list){return list.map(function(x){return h('div',null,[h('h3',{text:x.heading}),h('p',{text:x.body})]);});}
+  var kids=[]; if(a.length){kids.push(h('p',{class:'grp',text:'きょうの読み'})); kids=kids.concat(blocks(a));}
+  if(sa.length){kids.push(h('p',{class:'grp',text:'構造の読み'})); kids=kids.concat(blocks(sa));}
+  return h('section',{id:'kaisetsu'},[secHead('解説','分析を文章でまとめたもの'),h('div',{class:'prose'},kids)]);}
+function secSources(b,s){var a=A(b.sources).map(O).concat(A(O(s).sources).map(O)), seen={}, items=[];
+  a.forEach(function(x){var key=S(x.url)||S(x.title); if(!key||seen[key])return; seen[key]=1; items.push(x);});
+  return h('section',{id:'shutten'},[secHead('出典',items.length?items.length+'件':''),
+    items.length?h('ul',{class:'src'},items.map(function(x){return h('li',null,link(S(x.title)||S(x.url),x.url));})):null,
+    h('div',{class:'foot'},[
+      b.notes?h('p',{text:b.notes}):null,
+      h('p',{text:'毎日17:47ごろ（日本時間）に自動で更新されます。土日は市場が休みのため、週のまとめと翌週の日程を中心に更新します。'}),
+      h('p',{text:'※本ページは情報提供を目的としたものであり、特定の金融商品の売買を推奨するものではありません。投資判断はご自身の責任でお願いいたします。'})])]);}
+
+/* ---------- render ---------- */
+function syncNav(b){
+  var sig=st.list.map(function(x){return x.date+(S(x.status)==='provisional'?'p':'');}).join('|');
+  if(sig!==st.sig){ st.sig=sig; sel.textContent='';
+    st.list.forEach(function(x){sel.appendChild(h('option',{value:x.date,text:jpDate(x.date)+(S(x.status)==='provisional'?'・暫定':'')}));}); }
+  sel.disabled=!st.list.length; if(!st.list.length){sel.textContent=''; sel.appendChild(h('option',{text:st.db==='loading'?'読み込み中':'号なし'})); st.sig=''; prevBtn.disabled=nextBtn.disabled=true; return;}
+  sel.value=b.date; var i=st.list.indexOf(b); prevBtn.disabled=i>=st.list.length-1; nextBtn.disabled=i<=0;
+}
+function emptyState(title,body){app.textContent=''; app.appendChild(h('div',{class:'empty'},[h('h1',{text:title}),h('p',{text:body})]));}
+function render(){
+  var e=current();
+  if(!e){ syncNav(null);
+    if(st.db==='loading') return emptyState('きょうの分析を読み込んでいます','市況、相場を動かした材料、政権と議会の構造、今後の日程がここに並びます。');
+    if(st.db==='error') return emptyState('データを読み込めませんでした','時間をおいてページを開き直してください。');
+    return emptyState('まだ号がありません','毎日17:47ごろ（日本時間）に、その日の市況と政治の動きをまとめた号が自動で追加されます。');
+  }
+  syncNav(e);
+  var b=cache[e.date];
+  if(b===undefined){ loadDay(e.date); return emptyState(jpDate(e.date)+'号を読み込んでいます','少しお待ちください。'); }
+  if(b===null) return emptyState('この号を読み込めませんでした','時間をおいてページを開き直すか、別の日付を選んでください。');
+  var s=st.structure, parts=[masthead(b,st.list[0]),secMarkets(b),secDrivers(b),secNews(b),secMonetary(s),secStructure(s),secChannels(s),secWatch(b),secCal(b),secProse(b,s),secSources(b,s)];
+  app.textContent=''; parts.forEach(function(p){if(p)app.appendChild(p);});
+}
+sel.addEventListener('change',function(){st.picked=sel.value; st.filter='すべて'; render(); window.scrollTo(0,0);});
+prevBtn.addEventListener('click',function(){var b=current(),i=st.list.indexOf(b); if(i<st.list.length-1){st.picked=st.list[i+1].date; st.filter='すべて'; render();}});
+nextBtn.addEventListener('click',function(){var b=current(),i=st.list.indexOf(b); if(i>0){st.picked=st.list[i-1].date; st.filter='すべて'; render();}});
+
+/* ---------- data ---------- */
+var cache={}, pending={};
+function getJSON(path){ return fetch(path+'?v='+Math.floor(Date.now()/3e5),{cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error(String(r.status)); return r.json(); }); }
+function loadDay(d){ if(pending[d])return; pending[d]=1;
+  getJSON('data/briefings/'+d+'.json').then(function(x){cache[d]=(x&&validDate(x.date)&&typeof x.headline==='string')?x:null;},function(){cache[d]=null;})
+    .then(function(){delete pending[d]; render();}); }
+function start(){
+  getJSON('data/index.json').then(function(ix){
+    var list=A(O(ix).briefings).filter(function(x){return x&&validDate(x.date);});
+    list.sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0;});
+    st.list=list; st.db='ready'; render();
+  },function(){st.db='error';render();});
+  getJSON('data/structure.json').then(function(s){st.structure=O(s);render();},function(){});
+}
+start();
+})();
+</script>
+</body>
+</html>
